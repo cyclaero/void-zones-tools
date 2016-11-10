@@ -77,6 +77,8 @@ white/black list `my_void_hosts.txt` is placed into that directory, and this may
 listing some zones that are on the downloaded *Hosts* files, or for black listing addtional zones,
 that are missing from the downloads.
 
+    # void-zones-update.sh
+
     # nano /usr/local/etc/void-zones/my_void_hosts.txt
     
     # white list
