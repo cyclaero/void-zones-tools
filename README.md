@@ -74,8 +74,8 @@ Both tools are placed by the above command sequence into `/usr/local/bin`.
 On the first run of `void-zones-update.sh`, a directory is created at `/usr/local/etc/void-zones`,
 that serves as the storage location for the downloaded *Hosts* files. In addition a template for a
 custom white/black list `my_void_hosts.txt` is placed into that directory, and this may be used for
-whitelisting some zones that are on the downloaded *Hosts* files, or for blacklisting addtional zones,
-that are missing from the downloads. Now, execute said shell script:
+whitelisting some zones that are part of the downloaded *Hosts* files, or for blacklisting addtional,
+zones, that are missing from the downloads. Now, execute said shell script:
 
     # void-zones-update.sh
 
@@ -89,7 +89,7 @@ that are missing from the downloads. Now, execute said shell script:
     0.0.0.0 my.black.dom
     ...
 
-For whitelisting use the IP address 1.1.1.1, and for blacklisting 0.0.0.0 shall be used.
+For whitelisting use the IP address `1.1.1.1`, and for blacklisting `0.0.0.0` shall be used.
 
 The downloaded *Hosts* files are  placed into `/usr/local/etc/void-zones` as well:
 
