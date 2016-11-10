@@ -78,9 +78,3 @@ fi
                            "$ZONES_DIR/sowc_void_hosts.txt" \
                            "$ZONES_DIR/mvps_void_hosts.txt" \
   && /bin/mv /tmp/local-void.zones /var/unbound/local-void.zones
-
-
-### Convenience update of the root zones
-$FETCH -o /tmp/root-hints.zones "ftp://ftp.internic.net/domain/named.cache" \
-  && /bin/mv /tmp/root-hints.zones /var/unbound/root-hints.zones \
-  && /usr/sbin/service local_unbound restart
