@@ -126,4 +126,4 @@ Then the following 3 commands activate ad, tracking and malware domain blocking 
 
 For future updates execute the following command sequence which may be placed into a cron job:
 
-    # /usr/local/bin/void-zones-update.sh && /usr/sbin/service local_unbound resetart
+    # /usr/local/bin/void-zones-update.sh && /usr/sbin/service local_unbound restart
