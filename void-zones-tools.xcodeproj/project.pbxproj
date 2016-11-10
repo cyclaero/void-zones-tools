@@ -1,0 +1,236 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7E2DBCFE1969A348009CBAB5 /* hosts2zones.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E2DBCFD1969A348009CBAB5 /* hosts2zones.c */; };
+		7E6091F31DD49DD9006806A5 /* binutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E6091F21DD49DD9006806A5 /* binutils.c */; };
+		7E85DE91198BD94F00452942 /* store.c in Sources */ = {isa = PBXBuildFile; fileRef = 7E85DE8F198BD94F00452942 /* store.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7E2DBCF81969A348009CBAB5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		7E2DBCFA1969A348009CBAB5 /* hosts2zones */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = hosts2zones; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E2DBCFD1969A348009CBAB5 /* hosts2zones.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hosts2zones.c; sourceTree = "<group>"; };
+		7E6091F11DD49DD1006806A5 /* binutils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = binutils.h; sourceTree = "<group>"; };
+		7E6091F21DD49DD9006806A5 /* binutils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = binutils.c; sourceTree = "<group>"; };
+		7E85DE8F198BD94F00452942 /* store.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = store.c; sourceTree = "<group>"; };
+		7E85DE90198BD94F00452942 /* store.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = store.h; sourceTree = "<group>"; };
+		7EF08188198D12D800564108 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7E2DBCF71969A348009CBAB5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7E2DBCF11969A348009CBAB5 = {
+			isa = PBXGroup;
+			children = (
+				7E6091F11DD49DD1006806A5 /* binutils.h */,
+				7E6091F21DD49DD9006806A5 /* binutils.c */,
+				7E85DE90198BD94F00452942 /* store.h */,
+				7E85DE8F198BD94F00452942 /* store.c */,
+				7E2DBCFD1969A348009CBAB5 /* hosts2zones.c */,
+				7EF08188198D12D800564108 /* Makefile */,
+				7E2DBCFB1969A348009CBAB5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7E2DBCFB1969A348009CBAB5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7E2DBCFA1969A348009CBAB5 /* hosts2zones */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7E2DBCF91969A348009CBAB5 /* hosts2zones */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7E2DBD031969A348009CBAB5 /* Build configuration list for PBXNativeTarget "hosts2zones" */;
+			buildPhases = (
+				7E2DBCF61969A348009CBAB5 /* Sources */,
+				7E2DBCF71969A348009CBAB5 /* Frameworks */,
+				7E2DBCF81969A348009CBAB5 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = hosts2zones;
+			productName = hosts2zones;
+			productReference = 7E2DBCFA1969A348009CBAB5 /* hosts2zones */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7E2DBCF21969A348009CBAB5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = projectworld.net;
+			};
+			buildConfigurationList = 7E2DBCF51969A348009CBAB5 /* Build configuration list for PBXProject "void-zones-tools" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7E2DBCF11969A348009CBAB5;
+			productRefGroup = 7E2DBCFB1969A348009CBAB5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7E2DBCF91969A348009CBAB5 /* hosts2zones */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7E2DBCF61969A348009CBAB5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E6091F31DD49DD9006806A5 /* binutils.c in Sources */,
+				7E2DBCFE1969A348009CBAB5 /* hosts2zones.c in Sources */,
+				7E85DE91198BD94F00452942 /* store.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		7E2DBD011969A348009CBAB5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CLANG_X86_VECTOR_INSTRUCTIONS = ssse3;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
+				GCC_FAST_MATH = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+			};
+			name = Debug;
+		};
+		7E2DBD021969A348009CBAB5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CLANG_X86_VECTOR_INSTRUCTIONS = ssse3;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
+				GCC_FAST_MATH = YES;
+				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+			};
+			name = Release;
+		};
+		7E2DBD041969A348009CBAB5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7E2DBD051969A348009CBAB5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7E2DBCF51969A348009CBAB5 /* Build configuration list for PBXProject "void-zones-tools" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E2DBD011969A348009CBAB5 /* Debug */,
+				7E2DBD021969A348009CBAB5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7E2DBD031969A348009CBAB5 /* Build configuration list for PBXNativeTarget "hosts2zones" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E2DBD041969A348009CBAB5 /* Debug */,
+				7E2DBD051969A348009CBAB5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7E2DBCF21969A348009CBAB5 /* Project object */;
+}
