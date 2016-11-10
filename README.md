@@ -13,19 +13,19 @@ With this in place, *Unbound* would answer any DNS requests for `void.example.co
 ### For what are void zones useful?
 
 Void zones are the most straightforward way of blocking ad, tracking and other malware domains.
-While the method is similar to the *Hosts* files approach, the void zone method has 3 advantages:
+While the method is similar to the *Hosts* file approach, the void zone method got 3 advantages:
 
 1. Requests for any subdomain of the void zone result in `NXDOMAIN`.
-   In *Hosts* files any subdomain needs its own entry.
+   In *Hosts* files every subdomain needs its own entry.
 
 2. In *Hosts* files, each entry does consist of an IP address and a fully qualified domain,
-   and DNS requests for a given domain would return the listed IP address. For blocking
+   so DNS requests for a given domain would return the listed IP address. For blocking
    purposes either `127.0.0.1` or `0.0.0.0` is used, which may result in undesired side effects:
    
    - in the case of `127.0.0.1`, developers won't be able to run a test web-server on localhost,
-     and any software is suppoesed to try to establish a connection to localhost, and this 
+     and any software is supposed to try to establish a connection to localhost, and this 
      usually ends up in a timeout error. 
-   - in the case of `0.0.0.0` ill-behaved software still tries establish a connection, which
+   - in the case of `0.0.0.0` ill-behaved software still tries to establish a connection, which
       cannot work, but resources are utilized until timeout.
    
    The void zone response is `NXDOMAIN`, and no software would try to establish a connection
@@ -38,13 +38,13 @@ While the method is similar to the *Hosts* files approach, the void zone method 
    `root` login on your Androids, iPhones and/or iPads.
 
 
-### How does this compare to Browser plugins?
+### How does this compare to Browser Plugins?
 
 1. Browser plugins are destined to one piece of software and not to the whole machine.
-   Void zone are active for the whole machine or if deployed on a gateway, even for
-   thousands of clients, even for those (Android) which don't allow ad-blocking plugins.
+   Void zones are active for the whole machine or in the case of a gateway, for any
+   number of clients, and even for those (Android) which don't allow ad-blocking plugins.
 
-2. Browser plugins are active filters, that means beside the advertised behaviour, they
+2. Browser plugins are active filters, that means, beside the advertised behaviour, they
    are able to do something in the background. This is a matter of trust, which may
    sometimes miserably trapped -- see the WoT incident. Void zones are passive. The actual
    filtering is done by the DNS resolver, here *Unbound*, which is much less likely of doing
@@ -53,7 +53,7 @@ While the method is similar to the *Hosts* files approach, the void zone method 
 
 ### How do I deploy the void zone method on my FreeBSD machine?
 
-On the FreeBSD machine clone the present `void-zones-tools` project:
+On the FreeBSD machine, clone the present `void-zones-tools` project:
 
     # git clone https://github.com/cyclaero/void-zones-tools.git
     
@@ -71,11 +71,11 @@ The tools consist of the *Hosts* file converter and consolidator `hosts2zones` a
 
 Both tools are placed by the above command sequence into `/usr/local/bin`.
 
-On the first run of `void-zones-update.sh` a directory is created that serves as the storage location
-of the downloaded *Hosts* files at `/usr/local/etc/void-zones`. In addition a template for a custom
-white/black list `my_void_hosts.txt` is placed into that directory, and this may be used for white
-listing some zones that are on the downloaded *Hosts* files, or for black listing addtional zones,
-that are missing from the downloads.
+On the first run of `void-zones-update.sh`, a directory is created at `/usr/local/etc/void-zones`,
+that serves as the storage location for the downloaded *Hosts* files. In addition a template for a
+custom white/black list `my_void_hosts.txt` is placed into that directory, and this may be used for
+whitelisting some zones that are on the downloaded *Hosts* files, or for blacklisting addtional zones,
+that are missing from the downloads. Now, execute said shell script:
 
     # void-zones-update.sh
 
@@ -89,9 +89,9 @@ that are missing from the downloads.
     0.0.0.0 my.black.dom
     ...
 
-For whitelisting use the IP address 1.1.1.1, and for blacklsiting 0.0.0.0 shall be used.
+For whitelisting use the IP address 1.1.1.1, and for blacklisting 0.0.0.0 shall be used.
 
-The downloaded *Hosts* files are also placed into `/usr/local/etc/void-zones`:
+The downloaded *Hosts* files are  placed into `/usr/local/etc/void-zones` as well:
 
     # ls -l /usr/local/etc/void-zones
 
@@ -101,8 +101,9 @@ The downloaded *Hosts* files are also placed into `/usr/local/etc/void-zones`:
     -rw-r--r--  1 root  wheel   58032 Oct 14 10:39 pgl_void_hosts.txt
     -rw-r--r--  1 root  wheel  359109 Nov 10 15:19 sowc_void_hosts.txt
 
-And finally the command compiles (consolidates/converts) all *Hosts* files into one single void-zones
-include file, placing it to `/var/unbound/local-void.zones` for usage with *Unbound*.
+And finally the `void-zones-update.sh` compiles (consolidates/converts) all *Hosts* files
+into one single void-zones include file, and moves this into `/var/unbound/local-void.zones`
+for direct usage with *Unbound*.
 
     # head /var/unbound/local-void.zones
     
