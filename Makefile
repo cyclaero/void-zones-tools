@@ -50,3 +50,4 @@ update: clean all
 
 install: $(PRODUCT)
 	install -m 555 -s ipup $(DESTDIR)${PREFIX}/bin/$(PRODUCT) $(PRODUCT)
+	install -m 555 void-zones-update.sh $(DESTDIR)${PREFIX}/bin/void-zones-update.sh

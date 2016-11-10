@@ -30,6 +30,9 @@
 		7E6091F11DD49DD1006806A5 /* binutils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = binutils.h; sourceTree = "<group>"; };
 		7E6091F21DD49DD9006806A5 /* binutils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = binutils.c; sourceTree = "<group>"; };
 		7E6091F41DD4AB98006806A5 /* void-zones-update.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "void-zones-update.sh"; sourceTree = "<group>"; };
+		7E6091F51DD4E73A006806A5 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		7E6091F61DD4E73A006806A5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7E6091F91DD4FC56006806A5 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		7E85DE8F198BD94F00452942 /* store.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = store.c; sourceTree = "<group>"; };
 		7E85DE90198BD94F00452942 /* store.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = store.h; sourceTree = "<group>"; };
 		7EF08188198D12D800564108 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -56,6 +59,9 @@
 				7E2DBCFD1969A348009CBAB5 /* hosts2zones.c */,
 				7E6091F41DD4AB98006806A5 /* void-zones-update.sh */,
 				7EF08188198D12D800564108 /* Makefile */,
+				7E6091F61DD4E73A006806A5 /* README.md */,
+				7E6091F51DD4E73A006806A5 /* LICENSE */,
+				7E6091F91DD4FC56006806A5 /* .gitignore */,
 				7E2DBCFB1969A348009CBAB5 /* Products */,
 			);
 			sourceTree = "<group>";
