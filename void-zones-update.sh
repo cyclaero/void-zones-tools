@@ -56,9 +56,13 @@ fi
 
 
 ### Updating the void zones
-$FETCH -o "$ZONES_DIR/pgl_void_hosts.txt"  "http://pgl.yoyo.org/as/serverlist.php?hostformat=hosts&showintro=0&useip=0.0.0.0&mimetype=plaintext"
-$FETCH -o "$ZONES_DIR/sowc_void_hosts.txt" "http://someonewhocares.org/hosts/zero/hosts"
-$FETCH -o "$ZONES_DIR/mvps_void_hosts.txt" "http://winhelp2002.mvps.org/hosts.txt"
+$FETCH -o "$ZONES_DIR/pgl_void_hosts.txt"   "http://pgl.yoyo.org/as/serverlist.php?hostformat=hosts&showintro=0&useip=0.0.0.0&mimetype=plaintext"
+$FETCH -o "$ZONES_DIR/sowc_void_hosts.txt"  "http://someonewhocares.org/hosts/zero/hosts"
+$FETCH -o "$ZONES_DIR/mvps_void_hosts.txt"  "http://winhelp2002.mvps.org/hosts.txt"
+$FETCH -o "$ZONES_DIR/mdl_void_hosts.txt"   "http://www.malwaredomainlist.com/hostslist/hosts.txt"
+$FETCH -o "$ZONES_DIR/away_void_hosts.txt" "https://adaway.org/hosts.txt"
+$FETCH -o "$ZONES_DIR/ucky_void_host.txt"  "https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts"
+$FETCH -o "$ZONES_DIR/telm_void_hosts.txt" "https://raw.githubusercontent.com/FadeMind/hosts.extras/master/Telemetry/hosts"
 
 if [ ! -f "$ZONES_DIR/pgl_void_hosts.txt" ] ; then
    echo "# No hosts from pgl." > "$ZONES_DIR/pgl_void_hosts.txt"
@@ -72,9 +76,29 @@ if [ ! -f "$ZONES_DIR/mvps_void_hosts.txt" ] ; then
    echo "# No hosts from mvps." > "$ZONES_DIR/mvps_void_hosts.txt"
 fi
 
+if [ ! -f "$ZONES_DIR/mdl_void_hosts.txt" ] ; then
+   echo "# No hosts from mdl." > "$ZONES_DIR/mdl_void_hosts.txt"
+fi
+
+if [ ! -f "$ZONES_DIR/away_void_hosts.txt" ] ; then
+   echo "# No hosts from adaway." > "$ZONES_DIR/away_void_hosts.txt"
+fi
+
+if [ ! -f "$ZONES_DIR/ucky_void_host.txt" ] ; then
+   echo "# No hosts from FadeMind/unchecky." > "$ZONES_DIR/ucky_void_host.txt"
+fi
+
+if [ ! -f "$ZONES_DIR/telm_void_hosts.txt" ] ; then
+   echo "# No hosts from FadeMind/telemetry." > "$ZONES_DIR/telm_void_hosts.txt"
+fi
+
 /usr/local/bin/hosts2zones /tmp/local-void.zones \
                            "$ZONES_DIR/my_void_hosts.txt" \
                            "$ZONES_DIR/pgl_void_hosts.txt" \
                            "$ZONES_DIR/sowc_void_hosts.txt" \
                            "$ZONES_DIR/mvps_void_hosts.txt" \
+                           "$ZONES_DIR/mdl_void_hosts.txt" \
+                           "$ZONES_DIR/away_void_hosts.txt" \
+                           "$ZONES_DIR/ucky_void_host.txt" \
+                           "$ZONES_DIR/telm_void_hosts.txt" \
   && /bin/mv /tmp/local-void.zones /var/unbound/local-void.zones
