@@ -150,7 +150,7 @@ typedef long long     llong;
 
 #if defined(__x86_64__)
 
-   #include <immintrin.h>
+   #include <x86intrin.h>
 
    static const __m128i nul16 = {0x0000000000000000ULL, 0x0000000000000000ULL};  // 16 bytes with nul
    static const __m128i lfd16 = {0x0A0A0A0A0A0A0A0AULL, 0x0A0A0A0A0A0A0A0AULL};  // 16 bytes with line feed
