@@ -1,6 +1,6 @@
 .DS_Store
 .depend
-hosts2zone
+hosts2zones
 *.o
 *.core
 Hosts
