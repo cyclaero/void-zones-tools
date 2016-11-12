@@ -54,57 +54,58 @@ While the method is similar to the *Hosts* file approach, the void zone method g
 ### How do I deploy the void zone method on my FreeBSD machine?
 
 On the FreeBSD machine, clone the present `void-zones-tools` project:
-
     # git clone https://github.com/cyclaero/void-zones-tools.git
     
 Enter the directory of the working copy of the `void-zones-tools` and build & install the tools:
-
     # cd void-zones-tools
     # make install clean
     
 The tools consist of the *Hosts* file converter and consolidator `hosts2zones` and the shell script
 `void-zones-update.sh` which is used to download suitable *Hosts* files from 3 pre-defined providers:
 
-    http://pgl.yoyo.org/as/serverlist.php?hostformat=hosts&showintro=0&useip=0.0.0.0&mimetype=plaintext
-    http://someonewhocares.org/hosts/zero/hosts
-    http://winhelp2002.mvps.org/hosts.txt
+* [PGL - Ad blocking with ad server hostnames and IP addresses](http://pgl.yoyo.org/adservers/)
+* [SomeOneWhoCares - How to make the internet not suck (as much)](http://someonewhocares.org/hosts/zero/)
+* [MVPS - A detailed guide for using the MVPS HOSTS file](http://winhelp2002.mvps.org/)
+* [MDL - Malware Domain List](http://www.malwaredomainlist.com/)
+* [AdAway - Hosts](https://github.com/AdAway/AdAway)
+* [FadeMind - UncheckyAds & Telemetry](https://github.com/FadeMind/hosts.extras/)
 
-Both tools are placed by the above command sequence into `/usr/local/bin`.
 
-On the first run of `void-zones-update.sh`, a directory is created at `/usr/local/etc/void-zones`,
+The tools are placed by the above command sequence into `/usr/local/bin/`.
+
+On the first run of `void-zones-update.sh`, a directory is created at `/usr/local/etc/void-zones/`,
 that serves as the storage location for the downloaded *Hosts* files. In addition a template for a
 custom white/black list `my_void_hosts.txt` is placed into that directory, and this may be used for
 whitelisting some zones that are part of the downloaded *Hosts* files, or for blacklisting addtional,
 zones, that are missing from the downloads. Now, execute said shell script:
-
     # void-zones-update.sh
 
     # nano /usr/local/etc/void-zones/my_void_hosts.txt
     
     # white list
     1.1.1.1 my.white.dom
-    ...
 
     # black list
     0.0.0.0 my.black.dom
-    ...
 
 For whitelisting use the IP address `1.1.1.1`, and for blacklisting `0.0.0.0` shall be used.
 
-The downloaded *Hosts* files are  placed into `/usr/local/etc/void-zones` as well:
-
+The downloaded *Hosts* files are  placed into `/usr/local/etc/void-zones/` as well:
     # ls -l /usr/local/etc/void-zones
 
-    total 960
+    total 1180
+    -rw-r--r--  1 root  wheel   13783 Nov  1 10:16 away_void_hosts.txt
+    -rw-r--r--  1 root  wheel   40097 Nov 11 04:02 mdl_void_hosts.txt
     -rw-r--r--  1 root  wheel  502430 Oct 20 17:09 mvps_void_hosts.txt
-    -rw-r--r--  1 root  wheel      69 Nov 10 17:32 my_void_hosts.txt
-    -rw-r--r--  1 root  wheel   58032 Oct 14 10:39 pgl_void_hosts.txt
+    -rw-r--r--  1 root  wheel      69 Nov 11 17:32 my_void_hosts.txt
+    -rw-r--r--  1 root  wheel   58060 Oct 14 10:39 pgl_void_hosts.txt
     -rw-r--r--  1 root  wheel  359109 Nov 10 15:19 sowc_void_hosts.txt
+    -rw-r--r--  1 root  wheel    4024 Nov 11 21:58 telm_void_hosts.txt
+    -rw-r--r--  1 root  wheel    1124 Nov 11 21:58 ucky_void_host.txt
 
 And finally the `void-zones-update.sh` compiles (consolidates/converts) all *Hosts* files
-into one single void-zones include file, and moves this into `/var/unbound/local-void.zones`
+into one single `local-void.zones` include file, and moves this into `/var/unbound/`
 for direct usage with *Unbound*.
-
     # head /var/unbound/local-void.zones
     
     local-zone: "clk.cloudyisland.com" static
@@ -118,10 +119,14 @@ for direct usage with *Unbound*.
     ...
 
 For using the void zones method, of course *Unbound* must be up and running already on the given FreeBSD machine.
-Then the following 3 commands activate ad, tracking and malware domain blocking with *Unbound*:
+Then edit the configuration file `/var/unbound/unbound.conf` in order to activate ad, tracking, malware and telemetry domain
+filtering by *Unbound*:
+    # nano /var/unbound/unbound.conf
 
-    # echo "" >> /var/unbound/unbound.conf
-    # echo "include: /var/unbound/local-void.zones" >> /var/unbound/unbound.conf
+**Before** any forwarder directives, e.g. `forward-zone:` or `include: /var/unbound/forward.conf` add the following line:
+    include: /var/unbound/local-void.zones
+
+Then restart *Unbound*:
     # service local_unbound restart
 
 For future updates execute the following command sequence which may be placed into a cron job:

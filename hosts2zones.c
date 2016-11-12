@@ -29,7 +29,6 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
-#include <tmmintrin.h>
 #include <sys/stat.h>
 
 #include "binutils.h"

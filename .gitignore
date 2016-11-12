@@ -1,4 +1,9 @@
 .DS_Store
+.depend
+hosts2zone
+*.o
+*.core
+Hosts
 gh-pages
 xcuserdata
 *.xcworkspace

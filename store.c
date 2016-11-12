@@ -32,7 +32,6 @@
 #include <stdarg.h>
 #include <string.h>
 #include <syslog.h>
-#include <tmmintrin.h>
 #include <sys/stat.h>
 
 #include "binutils.h"

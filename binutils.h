@@ -150,14 +150,14 @@ typedef long long     llong;
 
 #if defined(__x86_64__)
 
-   #include <tmmintrin.h>
+   #include <immintrin.h>
 
    static const __m128i nul16 = {0x0000000000000000ULL, 0x0000000000000000ULL};  // 16 bytes with nul
    static const __m128i lfd16 = {0x0A0A0A0A0A0A0A0AULL, 0x0A0A0A0A0A0A0A0AULL};  // 16 bytes with line feed
    static const __m128i col16 = {0x3A3A3A3A3A3A3A3AULL, 0x3A3A3A3A3A3A3A3AULL};  // 16 bytes with colon ':' limit
    static const __m128i vtl16 = {0x7C7C7C7C7C7C7C7CULL, 0x7C7C7C7C7C7C7C7CULL};  // 16 bytes with vertical line '|' limit
-   static const __m128i blk16 = {0x2020202020202020ULL, 0x2020202020202020ULL};  // 16 bytes with inner blank limit
    static const __m128i obl16 = {0x2121212121212121ULL, 0x2121212121212121ULL};  // 16 bytes with outer blank limit
+   static const __m128i blk16 = {0x2020202020202020ULL, 0x2020202020202020ULL};  // 16 bytes with inner blank limit
 
    // Drop-in replacement for strlen(), utilizing some builtin SSSE3 instructions
    static inline int strvlen(const char *str)
@@ -248,11 +248,11 @@ typedef long long     llong;
 
       unsigned bmask;
 
-      if (bmask = (unsigned)_mm_movemask_epi8(_mm_cmpgt_epi8(_mm_abs_epi8(_mm_lddqu_si128((__m128i *)blank)), obl16)))
+      if (bmask = (unsigned)_mm_movemask_epi8(_mm_cmpgt_epi8(_mm_abs_epi8(_mm_lddqu_si128((__m128i *)blank)), blk16)))
          return __builtin_ctz(bmask);
 
       for (int len = 16 - (intptr_t)blank%16;; len += 16)
-         if (bmask = (unsigned)_mm_movemask_epi8(_mm_cmpgt_epi8(_mm_abs_epi8(_mm_load_si128((__m128i *)&blank[len])), obl16)))
+         if (bmask = (unsigned)_mm_movemask_epi8(_mm_cmpgt_epi8(_mm_abs_epi8(_mm_load_si128((__m128i *)&blank[len])), blk16)))
             return len + __builtin_ctz(bmask);
    }
 
@@ -352,7 +352,7 @@ typedef long long     llong;
          return 0;
 
       int l;
-      for (l = 0; word[l] > ' '; l++)
+      for (l = 0; (uchar)word[l] > ' '; l++)
          ;
       return l;
    }
@@ -363,7 +363,7 @@ typedef long long     llong;
          return 0;
 
       int l;
-      for (l = 0; blank[l] > ' '; l++)
+      for (l = 0; (uchar)blank[l] <= ' '; l++)
          ;
       return l;
    }
@@ -381,11 +381,11 @@ typedef long long     llong;
       if (l)
       {
          if (!*l)
-            *l = (int)strvlen(src);
+            *l = (int)strlen(src);
          k = *l;
       }
       else
-         k = (int)strvlen(src);
+         k = (int)strlen(src);
 
       if (!m)
          n = k;
