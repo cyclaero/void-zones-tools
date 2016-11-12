@@ -61,7 +61,7 @@ Enter the directory of the working copy of the `void-zones-tools` and build & in
     # make install clean
     
 The tools consist of the *Hosts* file converter and consolidator `hosts2zones` and the shell script
-`void-zones-update.sh` which is used to download suitable *Hosts* files from 3 pre-defined providers:
+`void-zones-update.sh` which is used to download suitable *Hosts* files from 6 pre-defined providers:
 
 * [PGL - Ad blocking with ad server hostnames and IP addresses](http://pgl.yoyo.org/adservers/)
 * [SomeOneWhoCares - How to make the internet not suck (as much)](http://someonewhocares.org/hosts/zero/)
