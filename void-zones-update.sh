@@ -63,6 +63,7 @@ $FETCH -o "$ZONES_DIR/mdl_void_hosts.txt"   "http://www.malwaredomainlist.com/ho
 $FETCH -o "$ZONES_DIR/away_void_hosts.txt" "https://adaway.org/hosts.txt"
 $FETCH -o "$ZONES_DIR/ucky_void_host.txt"  "https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts"
 $FETCH -o "$ZONES_DIR/telm_void_hosts.txt" "https://raw.githubusercontent.com/FadeMind/hosts.extras/master/Telemetry/hosts"
+$FETCH -o "$ZONES_DIR/jdom_void_list.txt"   "http://mirror1.malwaredomains.com/files/justdomains"
 
 if [ ! -f "$ZONES_DIR/pgl_void_hosts.txt" ] ; then
    echo "# No hosts from pgl." > "$ZONES_DIR/pgl_void_hosts.txt"
@@ -92,6 +93,10 @@ if [ ! -f "$ZONES_DIR/telm_void_hosts.txt" ] ; then
    echo "# No hosts from FadeMind/telemetry." > "$ZONES_DIR/telm_void_hosts.txt"
 fi
 
+if [ ! -f "$ZONES_DIR/jdom_void_list.txt" ] ; then
+   echo "# No domain list from DNS-BH – Malware Domain Blocklist." > "$ZONES_DIR/jdom_void_list.txt"
+fi
+
 /usr/local/bin/hosts2zones /tmp/local-void.zones \
                            "$ZONES_DIR/my_void_hosts.txt" \
                            "$ZONES_DIR/pgl_void_hosts.txt" \
@@ -101,6 +106,7 @@ fi
                            "$ZONES_DIR/away_void_hosts.txt" \
                            "$ZONES_DIR/ucky_void_host.txt" \
                            "$ZONES_DIR/telm_void_hosts.txt" \
+                           "$ZONES_DIR/jdom_void_list.txt" \
                            "$ZONES_DIR/x_void_list.txt" \
                            "$ZONES_DIR/y_void_list.txt" \
                            "$ZONES_DIR/z_void_list.txt" \
