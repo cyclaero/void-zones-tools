@@ -157,6 +157,7 @@ typedef long long     llong;
    static const __m128i col16 = {0x3A3A3A3A3A3A3A3AULL, 0x3A3A3A3A3A3A3A3AULL};  // 16 bytes with colon ':' limit
    static const __m128i vtl16 = {0x7C7C7C7C7C7C7C7CULL, 0x7C7C7C7C7C7C7C7CULL};  // 16 bytes with vertical line '|' limit
    static const __m128i blk16 = {0x2020202020202020ULL, 0x2020202020202020ULL};  // 16 bytes with inner blank limit
+   static const __m128i obl16 = {0x2121212121212121ULL, 0x2121212121212121ULL};  // 16 bytes with outer blank limit
 
    // Drop-in replacement for strlen(), utilizing some builtin SSSE3 instructions
    static inline int strvlen(const char *str)
@@ -165,7 +166,6 @@ typedef long long     llong;
          return 0;
 
       unsigned bmask;
-
       if (bmask = (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(_mm_loadu_si128((__m128i *)str), nul16)))
          return __builtin_ctz(bmask);
 
@@ -180,7 +180,6 @@ typedef long long     llong;
          return 0;
 
       unsigned bmask;
-
       if (bmask = (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(_mm_loadu_si128((__m128i *)line), nul16))
                 | (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(_mm_loadu_si128((__m128i *)line), lfd16)))
          return __builtin_ctz(bmask);
@@ -197,7 +196,6 @@ typedef long long     llong;
          return 0;
 
       unsigned bmask;
-
       if (bmask = (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(_mm_loadu_si128((__m128i *)tag), nul16))
                 | (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(_mm_loadu_si128((__m128i *)tag), col16)))
          return __builtin_ctz(bmask);
@@ -214,7 +212,6 @@ typedef long long     llong;
          return 0;
 
       unsigned bmask;
-
       if (bmask = (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(_mm_loadu_si128((__m128i *)field), nul16))
                 | (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(_mm_loadu_si128((__m128i *)field), vtl16)))
          return __builtin_ctz(bmask);
@@ -231,10 +228,8 @@ typedef long long     llong;
          return 0;
 
       unsigned bmask;
-
-                                           // unsigned comparison (a >= b) is identical to a == maxu(a, b)
       if (bmask = (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(blk16, _mm_max_epu8(blk16, _mm_loadu_si128((__m128i *)word)))))
-         return __builtin_ctz(bmask);
+         return __builtin_ctz(bmask);      // ^^^^^^^ unsigned comparison (a >= b) is identical to a == maxu(a, b) ^^^^^^^
 
       for (int len = 16 - (intptr_t)word%16;; len += 16)
          if (bmask = (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(blk16, _mm_max_epu8(blk16, _mm_load_si128((__m128i *)&word[len])))))
@@ -247,12 +242,13 @@ typedef long long     llong;
          return 0;
 
       unsigned bmask;
-                                           // unsigned comparison (a <= b) is identical to a == minu(a, b)
-      if (bmask = (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(blk16, _mm_min_epu8(blk16, _mm_loadu_si128((__m128i *)blank)))))
-         return __builtin_ctz(bmask);
+      if (bmask = (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(_mm_loadu_si128((__m128i *)blank), nul16))
+                | (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(obl16, _mm_min_epu8(obl16, _mm_loadu_si128((__m128i *)blank)))))
+         return __builtin_ctz(bmask);      // ^^^^^^^ unsigned comparison (a <= b) is identical to a == minu(a, b) ^^^^^^^
 
       for (int len = 16 - (intptr_t)blank%16;; len += 16)
-         if (bmask = (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(blk16, _mm_min_epu8(blk16, _mm_load_si128((__m128i *)&blank[len])))))
+         if (bmask = (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(_mm_load_si128((__m128i *)&blank[len]), nul16))
+                   | (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(obl16, _mm_min_epu8(obl16, _mm_load_si128((__m128i *)&blank[len])))))
             return len + __builtin_ctz(bmask);
    }
 
@@ -363,7 +359,7 @@ typedef long long     llong;
          return 0;
 
       int l;
-      for (l = 0; (uchar)blank[l] <= ' '; l++)
+      for (l = 0; blank[l] && (uchar)blank[l] <= ' '; l++)
          ;
       return l;
    }
