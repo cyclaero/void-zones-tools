@@ -64,46 +64,58 @@ void zoneOutput(Node *node)
    }
 }
 
+
 int main(int argc, const char *argv[])
 {
-   if (argc >= 3)
-      if (out = fopen(argv[1], "w"))
-      {
-         domainStore = createTable(hcnt);
+   if (argc >= 3 && (out = fopen(argv[1], "w")))
+   {
+      domainStore = createTable(hcnt);
 
-         struct stat st;
-         int    inc = 2;
-         while (inc < argc)
-            if (stat(argv[inc], &st) == noerr && st.st_size && (in = fopen(argv[inc], "r")))
+      int    inc;
+      struct stat st;
+      for (inc = 2; inc < argc; inc++)
+         if (stat(argv[inc], &st) == noerr && st.st_size > 3 && (in = fopen(argv[inc], "r")))
+         {
+            char *hosts = allocate(st.st_size+1, false);
+            if (fread(hosts, st.st_size, 1, in) == 1)
             {
-               char *hosts = allocate(st.st_size+1, false);
-               if (fread(hosts, st.st_size, 1, in) == 1)
+               hosts[st.st_size] = '\n';
+
+               bool  iswhite;
+               int   ll, wl;
+               char *word, *lineend, *line = hosts + blanklen(hosts);
+               char *nextword, *nextline;
+
+               while (line < hosts + st.st_size)
                {
-                  hosts[st.st_size] = '\n';
+                  ll = linelen(line); *(lineend = bskip(line+ll)) = '\0';              // skip trailing blanks
+                  nextline  = line + ll+1;                                             // get the start of the next line
+                  nextline += blanklen(nextline);                                      // by skipping leading blanks and blank lines
 
-                  bool  iswhite;
-                  int   ll, wl;
-                  char *word, *line = hosts;
-                  char *nextword, *nextline;
-
-                  while (line < hosts + st.st_size)
+                  if (*line != '#')                                                    // skip comment lines
                   {
-                     ll = linelen(line);
-                     nextline = line + ll+1;
+                     word = NULL;                                                      // assume inacceptable entry
 
-                     if ((iswhite = *(int64_t *)line == *(int64_t *)"1.1.1.1 " || *(int64_t *)line == *(int64_t *)"1.1.1.1\t") ||
-                        /*isblack*/ *(int64_t *)line == *(int64_t *)"0.0.0.0 " || *(int64_t *)line == *(int64_t *)"0.0.0.0\t"  ||
-                        /*isblack*/ *(int16_t *)line == *(int16_t *)"12" && (*(int64_t *)(line+=2) == *(int64_t *)"7.0.0.1\t"  || *(int64_t *)line == *(int64_t *)"7.0.0.1 "))
-                     {
-                        word = line + 8;
+                     wl = wordlen(line); line[wl] = '\0';                              // pickup the first entry on the line
+                     if (line+wl == lineend && *line != '.' && domainlen(line) < wl)   // accept a single domain name per line that must contain at least 1 non-leading/non-traling dot
+                        iswhite = false, word = line;                                  // simple domain lists are always black lists
 
-                        while (*word != '#' && word < nextline)
+                     else if ((iswhite = *(int64_t *)line == *(int64_t *)"1.1.1.1") || // otherwise assume the Hosts file format
+                             /*isblack*/ *(int64_t *)line == *(int64_t *)"0.0.0.0"  || // entrie starting with 1.1.1.1 shall be white listed
+                             /*isblack*/ *(int16_t *)line == *(int16_t *)"12" &&       // 0.0.0.0 or 127.0.0.1 are black list entries
+                                    *(int64_t *)(line+=2) == *(int64_t *)"7.0.0.1")
+                        word = line + 8, word += blanklen(word);                       // skip address and leading blanks
+
+                     if (word)                                                         // process only simple domain entries or entries in Hosts file format
+                        while (word && *word && *word != '#' && word < nextline)       // Hosts files may contain more than one domain per line
                         {
                            wl = wordlen(word);
                            nextword = word + wl;
                            *nextword++ = '\0';
+                           nextword += blanklen(nextword);
 
-                           if (*lowercase(word, wl) && (wl != 9 || *word != 'l' || *(int64_t *)(word+1) != *(int64_t *)"ocalhost") && !findName(domainStore, word, wl))
+                           if (*lowercase(word, wl) &&                                 // convert to lowercase, end check if it is a non empty
+                               (wl != 9 || *word != 'l' || *(int64_t *)(word+1) != *(int64_t *)"ocalhost") && !findName(domainStore, word, wl))
                            {
                               Value value = {Simple, .b = iswhite};
                               storeName(domainStore, word, wl, &value);
@@ -112,33 +124,26 @@ int main(int argc, const char *argv[])
 
                            word = nextword;
                         }
-                     }
-
-                     line = nextline;
                   }
+
+                  line = nextline;
                }
-
-               deallocate(VPR(hosts), false);
-               fclose(in);
-               inc++;
             }
 
-            else
-            {
-               releaseTable(domainStore);
-               fclose(out);
-               return 1;
-            }
+            deallocate(VPR(hosts), false);
+            fclose(in);
+         }
 
-         for (size_t h = 1; h <= hcnt; h++)
-            zoneOutput(domainStore[h]);
+      for (size_t h = 1; h <= hcnt; h++)
+         zoneOutput(domainStore[h]);
 
-         releaseTable(domainStore);
-         fclose(out);
+      releaseTable(domainStore);
+      fclose(out);
 
-         printf("Number of Hosts: %d\nNumber of Zones: %d\n", hosts_count, zones_count);
-         return 0;
-      }
+      printf("Number of Hosts: %d\nNumber of Zones: %d\n", hosts_count, zones_count);
+
+      return (zones_count > 0) ? 0 : 1;
+   }
 
    return 1;
 }

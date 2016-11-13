@@ -158,6 +158,7 @@ typedef long long     llong;
    static const __m128i vtl16 = {0x7C7C7C7C7C7C7C7CULL, 0x7C7C7C7C7C7C7C7CULL};  // 16 bytes with vertical line '|' limit
    static const __m128i blk16 = {0x2020202020202020ULL, 0x2020202020202020ULL};  // 16 bytes with inner blank limit
    static const __m128i obl16 = {0x2121212121212121ULL, 0x2121212121212121ULL};  // 16 bytes with outer blank limit
+   static const __m128i dot16 = {0x2E2E2E2E2E2E2E2EULL, 0x2E2E2E2E2E2E2E2EULL};  // 16 bytes with dots '.'
 
    // Drop-in replacement for strlen(), utilizing some builtin SSSE3 instructions
    static inline int strvlen(const char *str)
@@ -219,6 +220,22 @@ typedef long long     llong;
       for (int len = 16 - (intptr_t)field%16;; len += 16)
          if (bmask = (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(_mm_load_si128((__m128i *)&field[len]), nul16))
                    | (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(_mm_load_si128((__m128i *)&field[len]), vtl16)))
+            return len + __builtin_ctz(bmask);
+   }
+
+   static inline int domainlen(const char *domain)
+   {
+      if (!domain || !*domain)
+         return 0;
+
+      unsigned bmask;
+      if (bmask = (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(_mm_loadu_si128((__m128i *)domain), nul16))
+                | (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(_mm_loadu_si128((__m128i *)domain), dot16)))
+         return __builtin_ctz(bmask);
+
+      for (int len = 16 - (intptr_t)domain%16;; len += 16)
+         if (bmask = (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(_mm_load_si128((__m128i *)&domain[len]), nul16))
+                   | (unsigned)_mm_movemask_epi8(_mm_cmpeq_epi8(_mm_load_si128((__m128i *)&domain[len]), dot16)))
             return len + __builtin_ctz(bmask);
    }
 
@@ -342,6 +359,17 @@ typedef long long     llong;
       return l;
    }
 
+   static inline int domainlen(const char *domain)
+   {
+      if (!domain || !*domain)
+         return 0;
+
+      int l;
+      for (l = 0; domain[l] && domain[l] != '|'; l++)
+         ;
+      return l;
+   }
+
    static inline int wordlen(const char *word)
    {
       if (!word || !*word)
@@ -399,31 +427,18 @@ typedef long long     llong;
 static inline char *skip(char *s)
 {
    for (;;)
-      switch (*s)
-      {
-         case '\t'...'\r':
-         case ' ':
-            s++;
-            break;
-
-         default:
-            return s;
-      }
+      if ((uchar)*s <= ' ')
+         s++;
+      else
+         return s;
 }
 
 // backward skip white space  !!! s MUST NOT be NULL !!!
 static inline char *bskip(char *s)
 {
    for (;;)
-      switch (*--s)
-      {
-         case '\t'...'\r':
-         case ' ':
-            break;
-
-         default:
-            return s+1;
-      }
+      if ((uchar)*--s > ' ')
+         return s+1;
 }
 
 static inline char *trim(char *s)

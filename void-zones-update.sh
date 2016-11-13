@@ -101,4 +101,7 @@ fi
                            "$ZONES_DIR/away_void_hosts.txt" \
                            "$ZONES_DIR/ucky_void_host.txt" \
                            "$ZONES_DIR/telm_void_hosts.txt" \
+                           "$ZONES_DIR/x_void_list.txt" \
+                           "$ZONES_DIR/y_void_list.txt" \
+                           "$ZONES_DIR/z_void_list.txt" \
   && /bin/mv /tmp/local-void.zones /var/unbound/local-void.zones
