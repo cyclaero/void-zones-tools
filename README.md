@@ -112,9 +112,9 @@ The downloaded *Hosts* files are  placed into `/usr/local/etc/void-zones/` as we
     -rw-r--r--  1 root  wheel    4024 Nov 13 20:16 telm_void_hosts.txt
     -rw-r--r--  1 root  wheel    1124 Nov 13 20:16 ucky_void_host.txt
 
-And finally the `void-zones-update.sh` compiles (consolidates/converts) all *Hosts* files
-into one single `local-void.zones` include file, and moves this into `/var/unbound/` for
-direct usage with *Unbound*:
+And finally the `void-zones-update.sh` compiles (converts & consolidates) all *Hosts* files
+and *Domain* listings into one single `local-void.zones` include file, and moves this into
+`/var/unbound/` for direct usage with *Unbound*:
 
     # head /var/unbound/local-void.zones
     
