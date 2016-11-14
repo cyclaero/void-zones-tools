@@ -164,5 +164,5 @@ listings to the `hosts2zones` processing by executing the following command befo
             > /usr/local/etc/void-zones/x_void_list.txt
 
 Said command would place the respective lists joined together into `/usr/local/etc/void-zones/x_void_list.txt`, and on the
-next run of `void-zones-update.sh` that one would be included & converted & consolidated into the `local-void.zones` for
+next run of `void-zones-update.sh` that one would be  converted & consolidated & included into the `local-void.zones` for
 filtering by *Unbound*. In the case these additional files are missing, the tool simply ignores these parameters.
