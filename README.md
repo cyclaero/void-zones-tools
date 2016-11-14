@@ -153,14 +153,14 @@ passed by `void-zones-update.sh` to the conversion tool `hosts2zones`:
     y_void_list.txt
     z_void_list.txt
     
-This mechanism can be used to include for example the Disconnect.me listings to the `hosts2zones` processing by executing
-the following command before updating the other zones:
+This mechanism can be used to include for example the [Disconnect.me](https://github.com/chrisaljoudi/uBlock/issues/1406)
+listings to the `hosts2zones` processing by executing the following command before updating the other zones:
 
     # fetch -o - \
             https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt \
-            https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt \
-            https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt \
             https://s3.amazonaws.com/lists.disconnect.me/simple_malware.txt \
+            https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt \
+            https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt \
             > /usr/local/etc/void-zones/x_void_list.txt
 
 Said command would place the respective lists joined together into `/usr/local/etc/void-zones/x_void_list.txt`, and on the
