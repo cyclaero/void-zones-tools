@@ -81,10 +81,10 @@ The tools consist of the *Hosts* file converter & consolidator `hosts2zones` and
 The tools are placed by the above command sequence into `/usr/local/bin/`.
 
 On the first run of `void-zones-update.sh`, a directory is created at `/usr/local/etc/void-zones/`,
-that serves as the storage location for the downloaded *Hosts* files. In addition a template for a
-custom white/black list `my_void_hosts.txt` is placed into that directory, and this may be used for
-whitelisting some zones that are part of the downloaded *Hosts* files, or for blacklisting addtional,
-zones, that are missing from the downloads. Now, execute said shell script:
+which serves as the storage location for the downloaded *Hosts* files and/or *Domain* listings. In
+addition a template for a custom white/black list `my_void_hosts.txt` is placed into that directory,
+and this may be used for whitelisting some zones that are inadvertantly part of the downloaded *Hosts* files,
+or for blacklisting addtional zones, which are missing from the downloads. Now execute said shell script:
 
     # void-zones-update.sh
     # nano /usr/local/etc/void-zones/my_void_hosts.txt
