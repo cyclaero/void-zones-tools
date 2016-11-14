@@ -26,7 +26,7 @@ While the method is similar to the *Hosts* file approach, the void zone method g
      and any software is supposed to try to establish a connection to localhost, and this 
      usually ends up in a timeout error. 
    - in the case of `0.0.0.0` ill-behaved software still tries to establish a connection, which
-      cannot work, but resources are utilized until timeout.
+     cannot work, but resources are utilized until timeout.
    
    The void zone response is `NXDOMAIN`, and no software would try to establish a connection
    to a non-existing address.
@@ -145,3 +145,24 @@ Then restart *Unbound*:
 For future updates execute the following command sequence which may be placed into a cron job:
 
     # /usr/local/bin/void-zones-update.sh && /usr/sbin/service local_unbound restart
+
+In order to facilitate inclusion of listings which are not part of the automated updating, 3 additional input files are
+passed by `void-zones-update.sh` to the conversion tool `hosts2zones`:
+
+    x_void_list.txt
+    y_void_list.txt
+    z_void_list.txt
+    
+This mechanism can be used to include for example the Disconnect.me listings to the `hosts2zones` processing by executing
+the following command before updating the other zones:
+
+    # fetch -o - \
+            https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt \
+            https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt \
+            https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt \
+            https://s3.amazonaws.com/lists.disconnect.me/simple_malware.txt \
+            > /usr/local/etc/void-zones/x_void_list.txt
+
+Said command would place the respective lists joined together into `/usr/local/etc/void-zones/x_void_list.txt`, and on the
+next run of `void-zones-update.sh` that one would be included & converted & consolidated into the `local-void.zones` for
+filtering by *Unbound*. In the case these additional files are missing, the tool simply ignores these parameters.
