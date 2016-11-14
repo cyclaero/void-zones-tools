@@ -76,10 +76,10 @@ int main(int argc, const char *argv[])
       for (inc = 2; inc < argc; inc++)
          if (stat(argv[inc], &st) == noerr && st.st_size > 3 && (in = fopen(argv[inc], "r")))
          {
-            char *hosts = allocate(st.st_size+1, false);
+            char *hosts = allocate(st.st_size+2, false);
             if (fread(hosts, st.st_size, 1, in) == 1)
             {
-               hosts[st.st_size] = '\n';
+               *(uint16_t *)&hosts[st.st_size] = *(uint16_t *)"\n";
 
                bool  iswhite;
                int   ll, wl;

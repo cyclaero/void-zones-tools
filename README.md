@@ -67,8 +67,9 @@ The tools consist of the *Hosts* file converter and consolidator `hosts2zones` a
 * [SomeOneWhoCares - How to make the internet not suck (as much)](http://someonewhocares.org/hosts/zero/)
 * [MVPS - A detailed guide for using the MVPS HOSTS file](http://winhelp2002.mvps.org/)
 * [MDL - Malware Domain List](http://www.malwaredomainlist.com/)
-* [AdAway - Hosts](https://github.com/AdAway/AdAway)
+* [AdAway - Hosts](https://github.com/AdAway/AdAway/)
 * [FadeMind - UncheckyAds & Telemetry](https://github.com/FadeMind/hosts.extras/)
+* [DNS-BH – Malware Domain Blocklist](http://www.malwaredomains.com/)
 
 
 The tools are placed by the above command sequence into `/usr/local/bin/`.
@@ -93,15 +94,16 @@ For whitelisting use the IP address `1.1.1.1`, and for blacklisting `0.0.0.0` sh
 The downloaded *Hosts* files are  placed into `/usr/local/etc/void-zones/` as well:
     # ls -l /usr/local/etc/void-zones
 
-    total 1180
+    total 1310
     -rw-r--r--  1 root  wheel   13783 Nov  1 10:16 away_void_hosts.txt
+    -rw-r--r--  1 root  wheel  249280 Nov 11 20:47 jdom_void_list.txt
     -rw-r--r--  1 root  wheel   40097 Nov 11 04:02 mdl_void_hosts.txt
     -rw-r--r--  1 root  wheel  502430 Oct 20 17:09 mvps_void_hosts.txt
-    -rw-r--r--  1 root  wheel      69 Nov 11 17:32 my_void_hosts.txt
+    -rw-r--r--  1 root  wheel    1157 Nov 13 18:43 my_void_hosts.txt
     -rw-r--r--  1 root  wheel   58060 Oct 14 10:39 pgl_void_hosts.txt
-    -rw-r--r--  1 root  wheel  359109 Nov 10 15:19 sowc_void_hosts.txt
-    -rw-r--r--  1 root  wheel    4024 Nov 11 21:58 telm_void_hosts.txt
-    -rw-r--r--  1 root  wheel    1124 Nov 11 21:58 ucky_void_host.txt
+    -rw-r--r--  1 root  wheel  359132 Nov 12 15:50 sowc_void_hosts.txt
+    -rw-r--r--  1 root  wheel    4024 Nov 13 20:16 telm_void_hosts.txt
+    -rw-r--r--  1 root  wheel    1124 Nov 13 20:16 ucky_void_host.txt
 
 And finally the `void-zones-update.sh` compiles (consolidates/converts) all *Hosts* files
 into one single `local-void.zones` include file, and moves this into `/var/unbound/`
