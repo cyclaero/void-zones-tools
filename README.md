@@ -54,9 +54,11 @@ While the method is similar to the *Hosts* file approach, the void zone method g
 ### How do I deploy the void zone method on my FreeBSD machine?
 
 On the FreeBSD machine, clone the present `void-zones-tools` project:
+
     # git clone https://github.com/cyclaero/void-zones-tools.git
     
 Enter the directory of the working copy of the `void-zones-tools` and build & install the tools:
+
     # cd void-zones-tools
     # make install clean
     
@@ -79,8 +81,8 @@ that serves as the storage location for the downloaded *Hosts* files. In additio
 custom white/black list `my_void_hosts.txt` is placed into that directory, and this may be used for
 whitelisting some zones that are part of the downloaded *Hosts* files, or for blacklisting addtional,
 zones, that are missing from the downloads. Now, execute said shell script:
-    # void-zones-update.sh
 
+    # void-zones-update.sh
     # nano /usr/local/etc/void-zones/my_void_hosts.txt
     
     # white list
@@ -92,6 +94,7 @@ zones, that are missing from the downloads. Now, execute said shell script:
 For whitelisting use the IP address `1.1.1.1`, and for blacklisting `0.0.0.0` shall be used.
 
 The downloaded *Hosts* files are  placed into `/usr/local/etc/void-zones/` as well:
+
     # ls -l /usr/local/etc/void-zones
 
     total 1310
@@ -106,8 +109,9 @@ The downloaded *Hosts* files are  placed into `/usr/local/etc/void-zones/` as we
     -rw-r--r--  1 root  wheel    1124 Nov 13 20:16 ucky_void_host.txt
 
 And finally the `void-zones-update.sh` compiles (consolidates/converts) all *Hosts* files
-into one single `local-void.zones` include file, and moves this into `/var/unbound/`
-for direct usage with *Unbound*.
+into one single `local-void.zones` include file, and moves this into `/var/unbound/` for
+direct usage with *Unbound*:
+
     # head /var/unbound/local-void.zones
     
     local-zone: "clk.cloudyisland.com" static
@@ -123,12 +127,15 @@ for direct usage with *Unbound*.
 For using the void zones method, of course *Unbound* must be up and running already on the given FreeBSD machine.
 Then edit the configuration file `/var/unbound/unbound.conf` in order to activate ad, tracking, malware and telemetry domain
 filtering by *Unbound*:
+
     # nano /var/unbound/unbound.conf
 
 **Before** any forwarder directives, e.g. `forward-zone:` or `include: /var/unbound/forward.conf` add the following line:
+
     include: /var/unbound/local-void.zones
 
 Then restart *Unbound*:
+
     # service local_unbound restart
 
 For future updates execute the following command sequence which may be placed into a cron job:
