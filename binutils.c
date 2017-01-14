@@ -141,7 +141,7 @@ void deallocate(void **p, bool cleanout)
    }
 }
 
-void deallocate_batch(bool cleanout, ...)
+void deallocate_batch(unsigned cleanout, ...)
 {
    void   **p;
    va_list  vl;

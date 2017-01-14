@@ -24,7 +24,16 @@
 
 
 CC     ?= clang
-CFLAGS  = $(CDEFS) -std=c11 -g0 -Ofast -mssse3 -fstrict-aliasing -ffast-math -Wno-parentheses
+
+.if $(MACHINE) == "i386" || $(MACHINE) == "amd64" || $(MACHINE) == "x86_64"
+CFLAGS = $(CDEFS) -march=native -mssse3 -ffast-math
+.elif $(MACHINE) == "arm"
+CFLAGS = $(CDEFS) -fsigned-char
+.else
+CFLAGS = $(CDEFS)
+.endif
+
+CFLAGS += -std=c11 -g0 -Ofast -fstrict-aliasing -Wno-parentheses
 PREFIX ?= /usr/local
 
 HEADERS = binutils.h store.h
