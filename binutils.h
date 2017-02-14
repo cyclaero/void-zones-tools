@@ -365,7 +365,7 @@ typedef long long     llong;
          return 0;
 
       int l;
-      for (l = 0; domain[l] && domain[l] != '|'; l++)
+      for (l = 0; domain[l] && domain[l] != '.'; l++)
          ;
       return l;
    }
