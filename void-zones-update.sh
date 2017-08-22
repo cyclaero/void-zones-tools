@@ -56,14 +56,16 @@ fi
 
 
 ### Updating the void zones
-$FETCH -o "$ZONES_DIR/pgl_void_hosts.txt"   "http://pgl.yoyo.org/as/serverlist.php?hostformat=hosts&showintro=0&useip=0.0.0.0&mimetype=plaintext"
-$FETCH -o "$ZONES_DIR/sowc_void_hosts.txt"  "http://someonewhocares.org/hosts/zero/hosts"
-$FETCH -o "$ZONES_DIR/mvps_void_hosts.txt"  "http://winhelp2002.mvps.org/hosts.txt"
-$FETCH -o "$ZONES_DIR/mdl_void_hosts.txt"   "http://www.malwaredomainlist.com/hostslist/hosts.txt"
-$FETCH -o "$ZONES_DIR/away_void_hosts.txt" "https://adaway.org/hosts.txt"
-$FETCH -o "$ZONES_DIR/ucky_void_host.txt"  "https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts"
-$FETCH -o "$ZONES_DIR/telm_void_hosts.txt" "https://raw.githubusercontent.com/FadeMind/hosts.extras/master/Telemetry/hosts"
-$FETCH -o "$ZONES_DIR/jdom_void_list.txt"   "http://mirror1.malwaredomains.com/files/justdomains"
+$FETCH -o "$ZONES_DIR/pgl_void_hosts.txt"      "http://pgl.yoyo.org/as/serverlist.php?hostformat=hosts&showintro=0&useip=0.0.0.0&mimetype=plaintext"
+$FETCH -o "$ZONES_DIR/sowc_void_hosts.txt"     "http://someonewhocares.org/hosts/zero/hosts"
+$FETCH -o "$ZONES_DIR/mvps_void_hosts.txt"     "http://winhelp2002.mvps.org/hosts.txt"
+$FETCH -o "$ZONES_DIR/mdl_void_hosts.txt"      "http://www.malwaredomainlist.com/hostslist/hosts.txt"
+$FETCH -o "$ZONES_DIR/away_void_hosts.txt"     "https://adaway.org/hosts.txt"
+$FETCH -o "$ZONES_DIR/jdom_void_list.txt"      "http://mirror1.malwaredomains.com/files/justdomains"
+$FETCH -o "$ZONES_DIR/ucky_void_host.txt"     "https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts"
+$FETCH -o "$ZONES_DIR/w10telm_void_hosts.txt" "https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/win10/spy.txt"
+$FETCH -o "$ZONES_DIR/w81telm_void_hosts.txt" "https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/win81/spy.txt"
+$FETCH -o "$ZONES_DIR/w7telm_void_hosts.txt"  "https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/win7/spy.txt"
 
 if [ ! -f "$ZONES_DIR/pgl_void_hosts.txt" ] ; then
    echo "# No hosts from pgl." > "$ZONES_DIR/pgl_void_hosts.txt"
@@ -85,16 +87,24 @@ if [ ! -f "$ZONES_DIR/away_void_hosts.txt" ] ; then
    echo "# No hosts from adaway." > "$ZONES_DIR/away_void_hosts.txt"
 fi
 
+if [ ! -f "$ZONES_DIR/jdom_void_list.txt" ] ; then
+   echo "# No domain list from DNS-BH – Malware Domain Blocklist." > "$ZONES_DIR/jdom_void_list.txt"
+fi
+
 if [ ! -f "$ZONES_DIR/ucky_void_host.txt" ] ; then
    echo "# No hosts from FadeMind/unchecky." > "$ZONES_DIR/ucky_void_host.txt"
 fi
 
-if [ ! -f "$ZONES_DIR/telm_void_hosts.txt" ] ; then
-   echo "# No hosts from FadeMind/telemetry." > "$ZONES_DIR/telm_void_hosts.txt"
+if [ ! -f "$ZONES_DIR/w10telm_void_hosts.txt" ] ; then
+   echo "# No hosts from WindowsSpyBlocker/win10/spy." > "$ZONES_DIR/w10telm_void_hosts.txt"
 fi
 
-if [ ! -f "$ZONES_DIR/jdom_void_list.txt" ] ; then
-   echo "# No domain list from DNS-BH – Malware Domain Blocklist." > "$ZONES_DIR/jdom_void_list.txt"
+if [ ! -f "$ZONES_DIR/w81telm_void_hosts.txt" ] ; then
+   echo "# No hosts from WindowsSpyBlocker/win81/spy." > "$ZONES_DIR/w81telm_void_hosts.txt"
+fi
+
+if [ ! -f "$ZONES_DIR/w7telm_void_hosts.txt" ] ; then
+   echo "# No hosts from WindowsSpyBlocker/win7/spy." > "$ZONES_DIR/w7telm_void_hosts.txt"
 fi
 
 /usr/local/bin/hosts2zones /tmp/local-void.zones \
@@ -104,9 +114,11 @@ fi
                            "$ZONES_DIR/mvps_void_hosts.txt" \
                            "$ZONES_DIR/mdl_void_hosts.txt" \
                            "$ZONES_DIR/away_void_hosts.txt" \
-                           "$ZONES_DIR/ucky_void_host.txt" \
-                           "$ZONES_DIR/telm_void_hosts.txt" \
                            "$ZONES_DIR/jdom_void_list.txt" \
+                           "$ZONES_DIR/ucky_void_host.txt" \
+                           "$ZONES_DIR/w10telm_void_hosts.txt" \
+                           "$ZONES_DIR/w81telm_void_hosts.txt" \
+                           "$ZONES_DIR/w7telm_void_hosts.txt" \
                            "$ZONES_DIR/x_void_list.txt" \
                            "$ZONES_DIR/y_void_list.txt" \
                            "$ZONES_DIR/z_void_list.txt" \

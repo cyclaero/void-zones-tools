@@ -74,8 +74,9 @@ The tools consist of the *Hosts* file converter & consolidator `hosts2zones` and
 * [MVPS - A detailed guide for using the MVPS HOSTS file](http://winhelp2002.mvps.org/)
 * [MDL - Malware Domain List](http://www.malwaredomainlist.com/)
 * [AdAway - Hosts](https://github.com/AdAway/AdAway/)
-* [FadeMind - UncheckyAds & Telemetry](https://github.com/FadeMind/hosts.extras/)
 * [DNS-BH – Malware Domain Blocklist](http://www.malwaredomains.com/)
+* [FadeMind - UncheckyAds](https://github.com/FadeMind/hosts.extras/)
+* [WindowsSpyBlocker - Spy Hosts](https://github.com/crazy-max/WindowsSpyBlocker/)
 
 
 The tools are placed by the above command sequence into `/usr/local/bin/`.
@@ -101,16 +102,17 @@ The downloaded *Hosts* files are  placed into `/usr/local/etc/void-zones/` as we
 
     # ls -l /usr/local/etc/void-zones
 
-    total 1310
-    -rw-r--r--  1 root  wheel   13783 Nov  1 10:16 away_void_hosts.txt
-    -rw-r--r--  1 root  wheel  249280 Nov 11 20:47 jdom_void_list.txt
-    -rw-r--r--  1 root  wheel   40097 Nov 11 04:02 mdl_void_hosts.txt
-    -rw-r--r--  1 root  wheel  502430 Oct 20 17:09 mvps_void_hosts.txt
-    -rw-r--r--  1 root  wheel    1157 Nov 13 18:43 my_void_hosts.txt
-    -rw-r--r--  1 root  wheel   58060 Oct 14 10:39 pgl_void_hosts.txt
-    -rw-r--r--  1 root  wheel  359132 Nov 12 15:50 sowc_void_hosts.txt
-    -rw-r--r--  1 root  wheel    4024 Nov 13 20:16 telm_void_hosts.txt
-    -rw-r--r--  1 root  wheel    1124 Nov 13 20:16 ucky_void_host.txt
+    total 1876
+    -rw-r--r--  1 root  wheel   13722 Jan 31  2017 away_void_hosts.txt
+    -rw-r--r--  1 root  wheel  640858 Aug 17 19:16 jdom_void_list.txt
+    -rw-r--r--  1 root  wheel   36982 Jun 29 19:52 mdl_void_hosts.txt
+    -rw-r--r--  1 root  wheel  497673 Aug  7 11:07 mvps_void_hosts.txt
+    -rw-r--r--  1 root  wheel   60257 Aug 21 05:43 pgl_void_hosts.txt
+    -rw-r--r--  1 root  wheel  376421 Aug 20 14:40 sowc_void_hosts.txt
+    -rw-r--r--  1 root  wheel     618 Aug 22 09:29 ucky_void_host.txt
+    -rw-r--r--  1 root  wheel    9977 Aug 22 09:29 w10telm_void_hosts.txt
+    -rw-r--r--  1 root  wheel     886 Aug 22 09:29 w7telm_void_hosts.txt
+    -rw-r--r--  1 root  wheel    1142 Aug 22 09:29 w81telm_void_hosts.txt
 
 And finally the `void-zones-update.sh` compiles (converts & consolidates) all *Hosts* files
 and *Domain* listings into one single `local-void.zones` include file, and moves this into
