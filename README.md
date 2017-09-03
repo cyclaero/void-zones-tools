@@ -1,5 +1,5 @@
 ## void-zones-tools for FreeBSD
-### Prepare a list of void zones that can be readily feed into *Unbound*.
+### Prepare a list of void zones that can be readily fed into *Unbound*.
 
 ### What is a void zone?
 
