@@ -53,7 +53,17 @@ While the method is similar to the *Hosts* file approach, the void zone method g
 
 ### How do I deploy the void zone method on my FreeBSD machine?
 
-On the FreeBSD machine, either clone the present `void-zones-tools` project using *Git* or check it out with *Subversion*:
+The void-zones-tools made it into the FreeBSD ports and it can be installe from source or from the binary package repsotiory:
+
+    # cd /usr/ports/dns/void-zones-tools
+    # make install clean
+    
+or
+
+    # pkg install void-zones-tools
+
+
+Of course it is also possible to build from the source of the present github repository. Either clone the present `void-zones-tools` project using *Git* or check it out with *Subversion*:
 
     # git clone https://github.com/cyclaero/void-zones-tools.git
 
@@ -64,10 +74,11 @@ or
 Enter the directory of the working copy of the `void-zones-tools` and build & install the tools:
 
     # cd void-zones-tools
-    # make install clean CDEFS="-march=native"
+    # make install clean
     
+
 The tools consist of the *Hosts* file converter & consolidator `hosts2zones` and the shell script
-`void-zones-update.sh` which is used to download suitable *Hosts* files from 6 pre-defined providers:
+`void-zones-update.sh` which is used to download suitable *Hosts* files from 8 pre-defined providers:
 
 * [PGL - Ad blocking with ad server hostnames and IP addresses](http://pgl.yoyo.org/adservers/)
 * [SomeOneWhoCares - How to make the internet not suck (as much)](http://someonewhocares.org/hosts/zero/)
