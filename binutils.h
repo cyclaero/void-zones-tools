@@ -324,7 +324,7 @@ typedef long long     llong;
 
 #else
 
-   #define strvlen(s) strlen(s)
+   #define strvlen(s) (int)strlen(s)
 
    static inline int linelen(const char *line)
    {
