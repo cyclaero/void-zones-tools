@@ -26,7 +26,7 @@
 CC     ?= clang
 
 .if $(MACHINE) == "i386" || $(MACHINE) == "amd64" || $(MACHINE) == "x86_64"
-CFLAGS = $(CDEFS) -march=native -mssse3 -ffast-math
+CFLAGS = $(CDEFS) -march=native -mssse3
 .elif $(MACHINE) == "arm"
 CFLAGS = $(CDEFS) -fsigned-char
 .else
