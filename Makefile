@@ -33,7 +33,8 @@ CFLAGS = $(CDEFS) -fsigned-char
 CFLAGS = $(CDEFS)
 .endif
 
-CFLAGS += -std=c11 -g0 -Ofast -fstrict-aliasing -Wno-parentheses
+CFLAGS += -std=gnu11 -g0 -O3 -fno-pic -fvisibility=hidden -fstrict-aliasing -fno-common -fstack-protector \
+          -Wno-parentheses -Wshorten-64-to-32
 PREFIX ?= /usr/local
 
 HEADERS = binutils.h store.h
