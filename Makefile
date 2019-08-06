@@ -26,15 +26,15 @@
 CC     ?= clang
 
 .if $(MACHINE) == "i386" || $(MACHINE) == "amd64" || $(MACHINE) == "x86_64"
-CFLAGS = $(CDEFS) -march=native -mssse3
-.elif $(MACHINE) == "arm"
+CFLAGS = $(CDEFS) -march=native -mssse3 -Wshorten-64-to-32
+.elif $(MACHINE) == "arm" || $(MACHINE) == "armv7l"
 CFLAGS = $(CDEFS) -fsigned-char
 .else
 CFLAGS = $(CDEFS)
 .endif
 
 CFLAGS += -std=gnu11 -g0 -O3 -fno-pic -fvisibility=hidden -fstrict-aliasing -fno-common -fstack-protector \
-          -Wno-parentheses -Wshorten-64-to-32
+          -Wno-parentheses 
 PREFIX ?= /usr/local
 
 HEADERS = binutils.h store.h
