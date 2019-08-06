@@ -23,7 +23,8 @@
 # THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-CC     ?= clang
+CC ?= clang
+DV != $(CC) -dumpversion
 
 .if $(MACHINE) == "i386" || $(MACHINE) == "amd64" || $(MACHINE) == "x86_64"
 CFLAGS = $(CDEFS) -march=native -mssse3
@@ -33,8 +34,13 @@ CFLAGS = $(CDEFS) -fsigned-char
 CFLAGS = $(CDEFS)
 .endif
 
-CFLAGS += -std=gnu11 -g0 -O3 -fno-pic -fvisibility=hidden -fstrict-aliasing -fno-common -fstack-protector \
-          -Wno-parentheses -Wshorten-64-to-32
+CFLAGS += -std=gnu11 -g0 -O3 -fno-pic -fvisibility=hidden -fstrict-aliasing -fno-common -fstack-protector -Wno-parentheses
+
+# Clang only flags come here
+.if $(DV) == "4.2.1"
+CFLAGS += -Wshorten-64-to-32
+.endif
+
 PREFIX ?= /usr/local
 
 HEADERS = binutils.h store.h
