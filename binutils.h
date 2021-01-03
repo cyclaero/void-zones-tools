@@ -477,6 +477,182 @@ static inline char *uppercase(char *s, int n)
 }
 
 
+#define CMP(a, b, len) cmp##len(a, b)
+#define cmp(a, b, len) CMP(a, b, len)
+
+static inline bool cmp1(const void *a, const void *b)
+{
+   return *(uint8_t *)a == *(uint8_t *)b;
+}
+
+static inline bool cmp2(const void *a, const void *b)
+{
+   return *(uint16_t *)a == *(uint16_t *)b;
+}
+
+static inline bool cmp3(const void *a, const void *b)
+{
+   return cmp1(a, b) && cmp2((uint8_t *)a+1, (uint8_t *)b+1);
+}
+
+static inline bool cmp4(const void *a, const void *b)
+{
+   return *(uint32_t *)a == *(uint32_t *)b;
+}
+
+static inline bool cmp5(const void *a, const void *b)
+{
+   return cmp1(a, b) && cmp4((uint8_t *)a+1, (uint8_t *)b+1);
+}
+
+static inline bool cmp6(const void *a, const void *b)
+{
+   return cmp2(a, b) && cmp4((uint8_t *)a+2, (uint8_t *)b+2);
+}
+
+static inline bool cmp7(const void *a, const void *b)
+{
+   return cmp3(a, b) && cmp4((uint8_t *)a+3, (uint8_t *)b+3);
+}
+
+static inline bool cmp8(const void *a, const void *b)
+{
+#if !defined(__arm__)
+   return *(uint64_t *)a == *(uint64_t *)b;
+#else
+   return cmp4(a, b) && cmp4((uint8_t *)a+4, (uint8_t *)b+4);
+#endif
+}
+
+static inline bool cmp9(const void *a, const void *b)
+{
+   return cmp1(a, b) && cmp8((uint8_t *)a+1, (uint8_t *)b+1);
+}
+
+static inline bool cmp10(const void *a, const void *b)
+{
+   return cmp2(a, b) && cmp8((uint8_t *)a+2, (uint8_t *)b+2);
+}
+
+static inline bool cmp11(const void *a, const void *b)
+{
+   return cmp3(a, b) && cmp8((uint8_t *)a+3, (uint8_t *)b+3);
+}
+
+static inline bool cmp12(const void *a, const void *b)
+{
+   return cmp4(a, b) && cmp8((uint8_t *)a+4, (uint8_t *)b+4);
+}
+
+static inline bool cmp13(const void *a, const void *b)
+{
+   return cmp5(a, b) && cmp8((uint8_t *)a+5, (uint8_t *)b+5);
+}
+
+static inline bool cmp14(const void *a, const void *b)
+{
+   return cmp6(a, b) && cmp8((uint8_t *)a+6, (uint8_t *)b+6);
+}
+
+static inline bool cmp15(const void *a, const void *b)
+{
+   return cmp7(a, b) && cmp8((uint8_t *)a+7, (uint8_t *)b+7);
+}
+
+static inline bool cmp16(const void *a, const void *b)
+{
+   return cmp8(a, b) && cmp8((uint8_t *)a+8, (uint8_t *)b+8);
+}
+
+
+#define CPY(a, b, len) cpy##len(a, b)
+#define cpy(a, b, len) CPY(a, b, len)
+
+static inline void cpy1(void *a, const void *b)
+{
+  *(uint8_t *)a = *(uint8_t *)b;
+}
+
+static inline void cpy2(void *a, const void *b)
+{
+  *(uint16_t *)a = *(uint16_t *)b;
+}
+
+static inline void cpy3(void *a, const void *b)
+{
+   cpy2(a, b), cpy1((uint8_t *)a+2, (uint8_t *)b+2);
+}
+
+static inline void cpy4(void *a, const void *b)
+{
+   *(uint32_t *)a = *(uint32_t *)b;
+}
+
+static inline void cpy5(void *a, const void *b)
+{
+   cpy4(a, b), cpy1((uint8_t *)a+4, (uint8_t *)b+4);
+}
+
+static inline void cpy6(void *a, const void *b)
+{
+   cpy4(a, b), cpy2((uint8_t *)a+4, (uint8_t *)b+4);
+}
+
+static inline void cpy7(void *a, const void *b)
+{
+   cpy4(a, b), cpy3((uint8_t *)a+4, (uint8_t *)b+4);
+}
+
+static inline void cpy8(void *a, const void *b)
+{
+#if !defined(__arm__)
+   *(uint64_t *)a = *(uint64_t *)b;
+#else
+   cpy4(a, b), cpy4((uint8_t *)a+4, (uint8_t *)b+4);
+#endif
+}
+
+static inline void cpy9(void *a, const void *b)
+{
+   cpy8(a, b), cpy1((uint8_t *)a+8, (uint8_t *)b+8);
+}
+
+static inline void cpy10(void *a, const void *b)
+{
+   cpy8(a, b), cpy2((uint8_t *)a+8, (uint8_t *)b+8);
+}
+
+static inline void cpy11(void *a, const void *b)
+{
+   cpy8(a, b), cpy3((uint8_t *)a+8, (uint8_t *)b+8);
+}
+
+static inline void cpy12(void *a, const void *b)
+{
+   cpy8(a, b), cpy4((uint8_t *)a+8, (uint8_t *)b+8);
+}
+
+static inline void cpy13(void *a, const void *b)
+{
+   cpy8(a, b), cpy5((uint8_t *)a+8, (uint8_t *)b+8);
+}
+
+static inline void cpy14(void *a, const void *b)
+{
+   cpy8(a, b), cpy6((uint8_t *)a+8, (uint8_t *)b+8);
+}
+
+static inline void cpy15(void *a, const void *b)
+{
+   cpy8(a, b), cpy7((uint8_t *)a+8, (uint8_t *)b+8);
+}
+
+static inline void cpy16(void *a, const void *b)
+{
+   cpy8(a, b), cpy8((uint8_t *)a+8, (uint8_t *)b+8);
+}
+
+
 #pragma mark ••• Fencing Memory Allocation Wrappers •••
 
 // void pointer reference

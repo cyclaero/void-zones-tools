@@ -81,7 +81,7 @@ int main(int argc, const char *argv[])
             char *hosts = allocate(st.st_size + 2, false);
             if (fread(hosts, st.st_size, 1, in) == 1)
             {
-               *(uint16_t *)&hosts[st.st_size] = *(uint16_t *)"\n";                    // guaranteed end of line + end of string at the end of the read-in data
+               cpy2(&hosts[st.st_size], "\n");                                         // guaranteed end of line + end of string at the end of the read-in data
 
                bool  iswhite;
                int   dl, ll, wl;
@@ -106,10 +106,9 @@ int main(int argc, const char *argv[])
                          0 < (dl = domainlen(line)) && dl < wl)                        // must contain at least 1 non-leading & non-traling dot
                         word = line, iswhite = false;                                  // simple domain lists are always black lists
                                                                                        // otherwise assume the Hosts file format
-                     else if ((iswhite = *(int64_t *)line == *(int64_t *)"1.1.1.1") || // entries starting with 1.1.1.1 shall be white listed
-                             /*isblack*/ *(int64_t *)line == *(int64_t *)"0.0.0.0"  || // 0.0.0.0 or 127.0.0.1 are black list entries
-                             /*isblack*/ *(int16_t *)line == *(int16_t *)"12" &&
-                                    *(int64_t *)(line+=2) == *(int64_t *)"7.0.0.1")
+                     else if ((iswhite =  cmp8(line, "1.1.1.1")) ||                    // entries starting with 1.1.1.1 shall be white listed
+                             /*isblack*/  cmp8(line, "0.0.0.0")  ||                    // 0.0.0.0 or 127.0.0.1 are black list entries
+                             /*isblack*/ cmp10(line, "127.0.0.1") && (line+=2))
                         word = line + 8, word += blanklen(word);                       // skip IP address and leading blanks
 
                      if (word)                                                         // only process simple domain entries or entries in Hosts file format
@@ -120,9 +119,8 @@ int main(int argc, const char *argv[])
                            *nextword++ = '\0';
                            nextword += blanklen(nextword);
 
-                           if (*lowercase(word, wl) &&                                 // convert to lowercase, end check if it is a non empty string
-                               (*(int64_t *)word != *(int64_t *)"localhos"             // don't process 'localhost' entries
-                                || *(int16_t *)(word+8) != *(int16_t *)"t") &&
+                           if (*lowercase(word, wl) &&
+                               !cmp10(word, "localhost") &&                            // don't process 'localhost' entries
                                !findName(domainStore, word, wl))                       // if the entry does not exit in the domain store
                            {                                                           // then create a new one for the given domain name
                               Value value = {Simple, .b = iswhite};
