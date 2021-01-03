@@ -120,8 +120,7 @@ int main(int argc, const char *argv[])
                            nextword += blanklen(nextword);
 
                            if (*lowercase(word, wl) &&                                 // convert to lowercase, end check if it is a non empty string
-                               (*(int64_t *)word != *(int64_t *)"localhos"             // don't process 'localhost' entries
-                                || *(int16_t *)(word+8) != *(int16_t *)"t") &&
+                               strncmp(word, "localhost", 9) &&			       // don't process 'localhost' entries
                                !findName(domainStore, word, wl))                       // if the entry does not exit in the domain store
                            {                                                           // then create a new one for the given domain name
                               Value value = {Simple, .b = iswhite};
