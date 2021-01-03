@@ -81,7 +81,7 @@ int main(int argc, const char *argv[])
             char *hosts = allocate(st.st_size + 2, false);
             if (fread(hosts, st.st_size, 1, in) == 1)
             {
-               *(uint16_t *)&hosts[st.st_size] = *(uint16_t *)"\n";                    // guaranteed end of line + end of string at the end of the read-in data
+               hosts[st.st_size] = '\n';                    			       // guaranteed end of line + end of string at the end of the read-in data
 
                bool  iswhite;
                int   dl, ll, wl;
