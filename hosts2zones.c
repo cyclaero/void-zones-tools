@@ -106,10 +106,9 @@ int main(int argc, const char *argv[])
                          0 < (dl = domainlen(line)) && dl < wl)                        // must contain at least 1 non-leading & non-traling dot
                         word = line, iswhite = false;                                  // simple domain lists are always black lists
                                                                                        // otherwise assume the Hosts file format
-                     else if ((iswhite = *(int64_t *)line == *(int64_t *)"1.1.1.1") || // entries starting with 1.1.1.1 shall be white listed
-                             /*isblack*/ *(int64_t *)line == *(int64_t *)"0.0.0.0"  || // 0.0.0.0 or 127.0.0.1 are black list entries
-                             /*isblack*/ *(int16_t *)line == *(int16_t *)"12" &&
-                                    *(int64_t *)(line+=2) == *(int64_t *)"7.0.0.1")
+                     else if ((iswhite = !strncmp(line, "1.1.1.1", 8)) || 	       // entries starting with 1.1.1.1 shall be white listed
+                             /*isblack*/ !strncmp(line, "0.0.0.0", 8)  || 	       // 0.0.0.0 or 127.0.0.1 are black list entries
+                             /*isblack*/ (!strncmp(line, "127.0.0.1", 10) && (line+=2)))
                         word = line + 8, word += blanklen(word);                       // skip IP address and leading blanks
 
                      if (word)                                                         // only process simple domain entries or entries in Hosts file format
