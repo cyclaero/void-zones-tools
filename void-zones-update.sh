@@ -56,10 +56,10 @@ fi
 
 
 ### Updating the void zones
-$FETCH -o "$ZONES_DIR/pgl_void_hosts.txt"     "http://pgl.yoyo.org/as/serverlist.php?hostformat=hosts&showintro=0&useip=0.0.0.0&mimetype=plaintext"
-$FETCH -o "$ZONES_DIR/sowc_void_hosts.txt"    "http://someonewhocares.org/hosts/zero/hosts"
-$FETCH -o "$ZONES_DIR/mvps_void_hosts.txt"    "http://winhelp2002.mvps.org/hosts.txt"
-$FETCH -o "$ZONES_DIR/mdl_void_hosts.txt"     "http://www.malwaredomainlist.com/hostslist/hosts.txt"
+$FETCH -o "$ZONES_DIR/pgl_void_hosts.txt"     "https://pgl.yoyo.org/as/serverlist.php?hostformat=hosts&showintro=0&useip=0.0.0.0&mimetype=plaintext"
+$FETCH -o "$ZONES_DIR/sowc_void_hosts.txt"    "https://someonewhocares.org/hosts/zero/hosts"
+$FETCH -o "$ZONES_DIR/mvps_void_hosts.txt"    "https://winhelp2002.mvps.org/hosts.txt"
+$FETCH -o "$ZONES_DIR/mdl_void_hosts.txt"     "https://www.malwaredomainlist.com/hostslist/hosts.txt"
 $FETCH -o "$ZONES_DIR/away_void_hosts.txt"    "https://adaway.org/hosts.txt"
 $FETCH -o "$ZONES_DIR/ucky_void_host.txt"     "https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts"
 $FETCH -o "$ZONES_DIR/wintelm_void_hosts.txt" "https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt"
