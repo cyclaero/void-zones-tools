@@ -27,6 +27,12 @@
 # IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
 # THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+#For use with the local_unbound version (default) of unbound on FreeBSD
+LOCAL_VOID_ZONES_FILE="/var/unbound/local-void.zones"
+
+#For use with the pkg port version of unbound on FreeBSD
+#LOCAL_VOID_ZONES_FILE="/usr/local/etc/unbound/local-void.zones"
+
 
 ### verify the path to the fetch utility
 if [ -e "/usr/bin/fetch" ]; then
@@ -92,7 +98,9 @@ if [ ! -f "$ZONES_DIR/wintelm_void_hosts.txt" ] ; then
    echo "# No hosts from WindowsSpyBlocker/hosts/spy." > "$ZONES_DIR/wintelm_void_hosts.txt"
 fi
 
-/usr/local/bin/hosts2zones /tmp/local-void.zones \
+TMPFILE=`/usr/bin/mktemp /tmp/local-void.zones.XXXXXXXXXXX` || exit 1
+
+/usr/local/bin/hosts2zones $TMPFILE \
                            "$ZONES_DIR/my_void_hosts.txt" \
                            "$ZONES_DIR/pgl_void_hosts.txt" \
                            "$ZONES_DIR/sowc_void_hosts.txt" \
@@ -104,4 +112,4 @@ fi
                            "$ZONES_DIR/x_void_list.txt" \
                            "$ZONES_DIR/y_void_list.txt" \
                            "$ZONES_DIR/z_void_list.txt" \
-  && /bin/mv /tmp/local-void.zones /var/unbound/local-void.zones
+  && /bin/mv $TMPFILE $LOCAL_VOID_ZONES_FILE && /bin/chmod 644 $LOCAL_VOID_ZONES_FILE
