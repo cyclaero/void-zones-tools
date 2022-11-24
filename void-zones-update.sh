@@ -65,7 +65,6 @@ fi
 $FETCH -o "$ZONES_DIR/pgl_void_hosts.txt"     "https://pgl.yoyo.org/as/serverlist.php?hostformat=hosts&showintro=0&useip=0.0.0.0&mimetype=plaintext"
 $FETCH -o "$ZONES_DIR/sowc_void_hosts.txt"    "https://someonewhocares.org/hosts/zero/hosts"
 $FETCH -o "$ZONES_DIR/mvps_void_hosts.txt"    "https://winhelp2002.mvps.org/hosts.txt"
-$FETCH -o "$ZONES_DIR/mdl_void_hosts.txt"     "https://www.malwaredomainlist.com/hostslist/hosts.txt"
 $FETCH -o "$ZONES_DIR/away_void_hosts.txt"    "https://adaway.org/hosts.txt"
 $FETCH -o "$ZONES_DIR/ucky_void_host.txt"     "https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts"
 $FETCH -o "$ZONES_DIR/wintelm_void_hosts.txt" "https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt"
@@ -80,10 +79,6 @@ fi
 
 if [ ! -f "$ZONES_DIR/mvps_void_hosts.txt" ] ; then
    echo "# No hosts from mvps." > "$ZONES_DIR/mvps_void_hosts.txt"
-fi
-
-if [ ! -f "$ZONES_DIR/mdl_void_hosts.txt" ] ; then
-   echo "# No hosts from mdl." > "$ZONES_DIR/mdl_void_hosts.txt"
 fi
 
 if [ ! -f "$ZONES_DIR/away_void_hosts.txt" ] ; then
@@ -105,7 +100,6 @@ TMPFILE=`/usr/bin/mktemp /tmp/local-void.zones.XXXXXXXXXXX` || exit 1
                            "$ZONES_DIR/pgl_void_hosts.txt" \
                            "$ZONES_DIR/sowc_void_hosts.txt" \
                            "$ZONES_DIR/mvps_void_hosts.txt" \
-                           "$ZONES_DIR/mdl_void_hosts.txt" \
                            "$ZONES_DIR/away_void_hosts.txt" \
                            "$ZONES_DIR/ucky_void_host.txt" \
                            "$ZONES_DIR/wintelm_void_hosts.txt" \

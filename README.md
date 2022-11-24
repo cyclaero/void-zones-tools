@@ -83,7 +83,6 @@ The tools consist of the *Hosts* file converter & consolidator `hosts2zones` and
 * [PGL - Ad blocking with ad server hostnames and IP addresses](http://pgl.yoyo.org/adservers/)
 * [SomeOneWhoCares - How to make the internet not suck (as much)](http://someonewhocares.org/hosts/zero/)
 * [MVPS - A detailed guide for using the MVPS HOSTS file](http://winhelp2002.mvps.org/)
-* [MDL - Malware Domain List](http://www.malwaredomainlist.com/)
 * [AdAway - Hosts](https://github.com/AdAway/AdAway/)
 * [DNS-BH – Malware Domain Blocklist](http://www.malwaredomains.com/)
 * [FadeMind - UncheckyAds](https://github.com/FadeMind/hosts.extras/)
@@ -116,7 +115,6 @@ The downloaded *Hosts* files are  placed into `/usr/local/etc/void-zones/` as we
     total 1876
     -rw-r--r--  1 root  wheel   13722 Jan 31  2017 away_void_hosts.txt
     -rw-r--r--  1 root  wheel  640858 Aug 17 19:16 jdom_void_list.txt
-    -rw-r--r--  1 root  wheel   36982 Jun 29 19:52 mdl_void_hosts.txt
     -rw-r--r--  1 root  wheel  497673 Aug  7 11:07 mvps_void_hosts.txt
     -rw-r--r--  1 root  wheel   60257 Aug 21 05:43 pgl_void_hosts.txt
     -rw-r--r--  1 root  wheel  376421 Aug 20 14:40 sowc_void_hosts.txt
