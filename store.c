@@ -197,7 +197,7 @@ static int pickNextNode(Node **node, Node **exch)
 
 
 // CAUTION: The following recursive functions must not be called with name == NULL.
-//          For performace reasons no extra error cheking is done.
+//          For performance reasons no extra error checking is done.
 
 Node *findTreeNode(const char *name, Node *node)
 {

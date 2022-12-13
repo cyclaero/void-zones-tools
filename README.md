@@ -53,7 +53,7 @@ While the method is similar to the *Hosts* file approach, the void zone method g
 
 ### How do I deploy the void zone method on my FreeBSD machine?
 
-The *void-zones-tools* made it into the FreeBSD ports and it can be installed from source or from the binary package repsotiory:
+The *void-zones-tools* made it into the FreeBSD ports and it can be installed from source or from the binary package repository:
 
     # cd /usr/ports/dns/void-zones-tools
     # make install clean
@@ -94,8 +94,8 @@ The tools are placed by the above command sequence into `/usr/local/bin/`.
 On the first run of `void-zones-update.sh`, a directory is created at `/usr/local/etc/void-zones/`,
 which serves as the storage location for the downloaded *Hosts* files and/or *Domain* listings. In
 addition a template for a custom white/black list `my_void_hosts.txt` is placed into that directory,
-and this may be used for whitelisting some zones that are inadvertantly part of the downloaded *Hosts* files,
-or for blacklisting addtional zones, which are missing from the downloads. Now execute said shell script:
+and this may be used for whitelisting some zones that are inadvertently part of the downloaded *Hosts* files,
+or for blacklisting additional zones, which are missing from the downloads. Now execute said shell script:
 
     # void-zones-update.sh
     # nano /usr/local/etc/void-zones/my_void_hosts.txt

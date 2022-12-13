@@ -103,7 +103,7 @@ int main(int argc, const char *argv[])
 
                      line[wl = wordlen(line)] = '\0';                                  // pickup the first entry on the line
                      if (line+wl == lineend &&                                         // accept a single domain name per line which
-                         0 < (dl = domainlen(line)) && dl < wl)                        // must contain at least 1 non-leading & non-traling dot
+                         0 < (dl = domainlen(line)) && dl < wl)                        // must contain at least 1 non-leading & non-trailing dot
                         word = line, iswhite = false;                                  // simple domain lists are always black lists
                                                                                        // otherwise assume the Hosts file format
                      else if ((iswhite =  cmp8(line, "1.1.1.1")) ||                    // entries starting with 1.1.1.1 shall be white listed

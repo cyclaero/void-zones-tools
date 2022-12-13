@@ -49,7 +49,7 @@ else
 fi
 
 
-### Storage location of the dowloaded void hosts lists
+### Storage location of the downloaded void hosts lists
 ZONES_DIR="/usr/local/etc/void-zones"
 if [ ! -d "$ZONES_DIR" ]; then
    mkdir -p "$ZONES_DIR"

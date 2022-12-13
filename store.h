@@ -71,7 +71,7 @@ typedef struct Node
 
 
 // CAUTION: The following recursive functions must not be called with name == NULL.
-//          For performace reasons no extra error cheking is done.
+//          For performance reasons no extra error checking is done.
 Node *findTreeNode(const char *name, Node  *node);
 int    addTreeNode(const char *name, ssize_t naml, Value *value, Node **node, Node **passed);
 int removeTreeNode(const char *name, Node **node);
